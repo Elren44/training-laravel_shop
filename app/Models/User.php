@@ -11,6 +11,22 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'users';
+    protected $guarded = false;
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
+
+    static function getGenders(){
+        return [
+            self::GENDER_MALE => 'Мужской',
+            self::GENDER_FEMALE => 'Женский',
+        ];
+    }
+    public function getGenderTitleAttribute() {
+        return self::getGenders()[$this->gender];
+    }
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +34,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'surname', 'email', 'password', 'patronymic', 'age', 'gender', 'address'
     ];
 
     /**

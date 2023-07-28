@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Category as Category;
 use App\Http\Controllers\Color as Color;
 use App\Http\Controllers\Tag as Tag;
+use App\Http\Controllers\User as User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,3 +47,14 @@ Route::group(['prefix'=>'tags'], function () {
     Route::patch('/{tag}', Tag\UpdateController::class)->name('tag.update');
     Route::delete('/{tag}', Tag\DeleteController::class)->name('tag.delete');
 });
+
+Route::group(['prefix'=>'users'], function () {
+    Route::get('/', User\IndexController::class)->name('user.index');
+    Route::get('/create', User\CreateController::class)->name('user.create');
+    Route::post('/', User\StoreController::class)->name('user.store');
+    Route::get('/{user}/edit', User\EditController::class)->name('user.edit');
+    Route::get('/{user}', User\ShowController::class)->name('user.show');
+    Route::patch('/{user}', User\UpdateController::class)->name('user.update');
+    Route::delete('/{user}', User\DeleteController::class)->name('user.delete');
+});
+
